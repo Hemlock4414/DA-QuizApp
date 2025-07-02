@@ -8,7 +8,7 @@ let questions = [
         'right_answer': 3
     },
     {
-        'question': 'Was bedeutet das HTML Tag &lt;a&;?',
+        'question': 'Was bedeutet das HTML Tag &lt;a&gt;?',
         'answer_1': 'Text Fett',
         'answer_2': 'Container',
         'answer_3': 'Ein Link',
@@ -56,3 +56,75 @@ let questions = [
         'right_answer': 4
     },
 ];
+
+let currentQuestion = 0;
+
+function init() {
+    document.getElementById('all-questions').innerHTML = questions.length;
+
+    showQuestion();
+}
+
+function showQuestion() {
+
+    let question = questions[currentQuestion];
+
+    document.getElementById('question-text').innerHTML = question['question'];
+
+    document.getElementById('answer_1').innerHTML = question.answer_1;
+
+    document.getElementById('answer_2').innerHTML = questions[currentQuestion].answer_2;
+
+    document.getElementById('answer_3').innerHTML = questions[currentQuestion].answer_3;
+
+    document.getElementById('answer_4').innerHTML = questions[currentQuestion].answer_4;
+
+    document.getElementById('current-question').innerHTML = currentQuestion + 1;
+}
+
+function answer(selection) {
+    let question = questions[currentQuestion];
+
+    console.log('Selected answer is', selection);
+
+    // hier wird der letzte Buchstabe (Charachter) des Strings abgeschnitten und dieser in einer neuen Variable gespeichert
+    let selectedQuestionNumber = selection.slice(-1);
+
+    console.log(selectedQuestionNumber);
+
+    console.log('Correct answer of current question is', question.right_answer);
+
+    let idOfRightAnswer = `answer_${question.right_answer}`;
+
+    if(selectedQuestionNumber == question.right_answer) {
+        console.log('Richtige Antwort');
+        document.getElementById(selection).parentNode.classList.add('bg-success');
+    } else {
+        console.log('Falsche Antwort');
+        document.getElementById(selection).parentNode.classList.add('bg-danger');
+        document.getElementById(idOfRightAnswer).parentNode.classList.add('bg-success');
+    }
+    document.getElementById('next-button').disabled = false;
+}
+
+function nextQuestion() {
+
+    currentQuestion++;
+
+    document.getElementById('next-button').disabled = true;
+
+    resetAnswerButtons();
+
+    showQuestion();
+}
+
+function resetAnswerButtons() {
+    document.getElementById('answer_1').parentNode.classList.remove('bg-danger');
+    document.getElementById('answer_1').parentNode.classList.remove('bg-success');
+    document.getElementById('answer_2').parentNode.classList.remove('bg-danger');
+    document.getElementById('answer_2').parentNode.classList.remove('bg-success');
+    document.getElementById('answer_3').parentNode.classList.remove('bg-danger');
+    document.getElementById('answer_3').parentNode.classList.remove('bg-success');
+    document.getElementById('answer_4').parentNode.classList.remove('bg-danger');
+    document.getElementById('answer_4').parentNode.classList.remove('bg-success');
+}
