@@ -59,6 +59,8 @@ let questions = [
 
 let currentQuestion = 0;
 
+let rightQuestions = 0;
+
 function init() {
     document.getElementById('all-questions').innerHTML = questions.length;
 
@@ -67,19 +69,44 @@ function init() {
 
 function showQuestion() {
 
-    let question = questions[currentQuestion];
+    if(currentQuestion >= questions.length) {
 
-    document.getElementById('question-text').innerHTML = question['question'];
+        // Ende Quiz
+        document.getElementById('end-screen').style = '';
 
-    document.getElementById('answer_1').innerHTML = question.answer_1;
+        document.getElementById('question-body').style = 'display:none';
 
-    document.getElementById('answer_2').innerHTML = questions[currentQuestion].answer_2;
+        document.getElementById('amount-of-questions').innerHTML = questions.length;
+        document.getElementById('amount-correct-answers').innerHTML = rightQuestions;
+        // document.getElementById('header-image').src = '';
+        document.getElementById('progress-bar').innerHTML = '100%';
+        document.getElementById('progress-bar').style = 'width: 100%';
 
-    document.getElementById('answer_3').innerHTML = questions[currentQuestion].answer_3;
+    } else {
+        
+        // Normaler Quizverlauf
 
-    document.getElementById('answer_4').innerHTML = questions[currentQuestion].answer_4;
+        // Progress Bar
+        let percent = currentQuestion / questions.length;
+        percent = Math.round(percent * 100);
+        console.log(percent);
+        document.getElementById('progress-bar').innerHTML = `${percent}%`;
+        document.getElementById('progress-bar').style = `width: ${percent}%`;
 
-    document.getElementById('current-question').innerHTML = currentQuestion + 1;
+        let question = questions[currentQuestion];
+
+        document.getElementById('question-text').innerHTML = question['question'];
+
+        document.getElementById('answer_1').innerHTML = question.answer_1;
+
+        document.getElementById('answer_2').innerHTML = questions[currentQuestion].answer_2;
+
+        document.getElementById('answer_3').innerHTML = questions[currentQuestion].answer_3;
+
+        document.getElementById('answer_4').innerHTML = questions[currentQuestion].answer_4;
+
+        document.getElementById('current-question').innerHTML = currentQuestion + 1;
+    }
 }
 
 function answer(selection) {
@@ -99,6 +126,7 @@ function answer(selection) {
     if(selectedQuestionNumber == question.right_answer) {
         console.log('Richtige Antwort');
         document.getElementById(selection).parentNode.classList.add('bg-success');
+        rightQuestions++;
     } else {
         console.log('Falsche Antwort');
         document.getElementById(selection).parentNode.classList.add('bg-danger');

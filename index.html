@@ -20,8 +20,29 @@
 
     <div class="quiz-container">
         <div class="card" style="width: 30rem;">
-            <!-- <img src="..." class="card-img-top" alt="..."> -->
-            <div class="card-body">
+            <!-- <img src="..." class="card-img-top" id="header-image"> -->
+
+            <!-- Ende Quiz -->
+
+            <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
+            </div>
+
+            <div class="card-body" id="end-screen" style="display: none;">
+                <span>Quiz beendet!</span>
+
+                <!-- <div><img src="trophy" alt=""></div> -->
+
+                <span>Du hast <b id="amount-correct-answers"></b> Fragen von <b id="amount-of-questions"></b> richtig beantwortet.</span>
+                
+                <div class="restart-btn">
+                    <button class="btn btn-primary" id="restart-button" onclick="restartQuiz()">Neu starten</button>
+                </div>
+            </div>
+
+            <!-- Normales Quiz -->
+
+            <div class="card-body" id="question-body">
                 <h5 class="card-title" id="question-text"></h5>
 
                 <div class="card mb-2 quiz-answer-card" onclick="answer('answer_1')">

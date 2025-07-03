@@ -24,3 +24,9 @@ body {
 .bg-success, .bg-danger {
     color: white;
 }
+
+.restart-btn {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
