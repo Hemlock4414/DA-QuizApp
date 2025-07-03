@@ -61,6 +61,8 @@ let currentQuestion = 0;
 
 let rightQuestions = 0;
 
+let AUDIO_SUCCESS = new Audio('./assets/audio/success.mp3');
+
 function init() {
     document.getElementById('all-questions').innerHTML = questions.length;
 
@@ -126,6 +128,7 @@ function answer(selection) {
     if(selectedQuestionNumber == question.right_answer) {
         console.log('Richtige Antwort');
         document.getElementById(selection).parentNode.classList.add('bg-success');
+        AUDIO_SUCCESS.play();
         rightQuestions++;
     } else {
         console.log('Falsche Antwort');
@@ -155,4 +158,19 @@ function resetAnswerButtons() {
     document.getElementById('answer_3').parentNode.classList.remove('bg-success');
     document.getElementById('answer_4').parentNode.classList.remove('bg-danger');
     document.getElementById('answer_4').parentNode.classList.remove('bg-success');
+}
+
+function restartQuiz() {
+
+    // document.getElementById('header-image').src = '';
+
+    currentQuestion = 0;
+
+    rightQuestions = 0;
+
+    document.getElementById('end-screen').style = 'display:none';
+
+    document.getElementById('question-body').style = '';
+
+    init();
 }
